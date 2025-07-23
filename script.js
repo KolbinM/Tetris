@@ -400,16 +400,16 @@ window.addEventListener('keydown', function(e) {
         }
     }
 
-    if (e.keyCode == 37) {
+    if (e.code == "ArrowLeft") {
         GetNewState(-1);
     };
-    if (e.keyCode == 39) {
+    if (e.code == "ArrowRight") {
         GetNewState(1);
     };
-    if (e.keyCode == 40) {
+    if (e.code == "ArrowDown") {
         moveFig();
     };
-    if (e.keyCode == 38) {
+    if (e.code == "ArrowUp") {
         flag = true;
 
         let figNew = [
