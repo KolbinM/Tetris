@@ -1,3 +1,27 @@
+let overlay = document.querySelector('.overlay');
+let modal = document.querySelector('.modal');
+let speed = 0;
+
+modal.addEventListener('click', function (e) {
+    if (e.target.classList.contains('easy')) {
+        speed = 1000;
+    };
+    if (e.target.classList.contains('normal')) {
+        speed = 500;
+    };
+    if (e.target.classList.contains('hard')) {
+        speed = 200;
+    };
+
+    if (e.target.classList.contains('button')) {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+        startGame();
+    }
+})
+
+function startGame() {
+
 let tetris = document.createElement('div');
 tetris.classList.add('tetris');
 
@@ -288,6 +312,10 @@ function createFig() {
 
 createFig(); 
 
+let score = 0;
+let input = document.getElementsByTagName('input')[0];
+input.value = `Ваши очки: ${score}`;
+
 function moveFig() {
     let moveFlag = true;
     let coordinates = [
@@ -328,6 +356,8 @@ function moveFig() {
                 if(document.querySelector(`[posX = "${k}"][posY = "${i}"]`).classList.contains('set')) {
                     count++;
                     if(count == 10) {
+                        score += 10;
+                        input.value = `Ваши очки: ${score}`;
                         for(let m=1; m<11; m++) {
                             document.querySelector(`[posX = "${m}"][posY = "${i}"]`).classList.remove('set')
                         }
@@ -351,7 +381,7 @@ function moveFig() {
         for(let n=1; n<11; n++) {
             if(document.querySelector(`[posX = "${n}"][posY = "15"]`).classList.contains('set')) {
                 clearInterval(interval);
-                alert('Game over!');
+                alert(`Game over! Ваши очки: ${score}`);
                 break;
             }
         }
@@ -361,7 +391,7 @@ function moveFig() {
 
 let interval = setInterval(() => {
     moveFig(); 
-}, 300);
+}, speed);
 
 let flag = true;
 
@@ -444,3 +474,4 @@ window.addEventListener('keydown', function(e) {
         }
     };
 })
+}
